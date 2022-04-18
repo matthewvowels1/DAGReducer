@@ -1,7 +1,6 @@
 import networkx as nx
 
-def reducer(graph, xs, ys, precision_vars=True):
-	all_nodes = set(graph.nodes())
+def reducer(graph, xs, ys):
 
 	reduced_graph = nx.DiGraph()
 
@@ -19,8 +18,6 @@ def reducer(graph, xs, ys, precision_vars=True):
 
 	desired_paths = list(reduced_graph.edges())
 	desired_vars = set([item for sublist in desired_paths for item in sublist])
-	remaining_nodes = all_nodes - desired_vars
-	upstream_causes = desired_vars - set(ys)
 
 	all_predecs = []
 	for desired_var in desired_vars:  # for each desired variable
@@ -32,14 +29,12 @@ def reducer(graph, xs, ys, precision_vars=True):
 	routes = {}  # this will store all the ways a predec can connect to a desired variable
 	for predec in all_predecs:
 		routes[predec] = []
-		positions = []
 		for desired_var in desired_vars:
 			paths = list(nx.all_simple_paths(graph, predec, desired_var))
 
 			for path in paths:
-				i = 0
 				for var in path:
-					if var in desired_vars:  # for each variable in the path, if we find a deisred variable with store it and move on
+					if var in desired_vars:  # for each variable in the path, if we find a desired variable with store it and move on
 						routes[predec].append(var)
 						break
 
