@@ -65,9 +65,7 @@ def reducer(graph, xs, ys):
 			for var2 in route:  # count the maximum position of each of the desired vars in each confounded route
 				paths = list(nx.all_simple_paths(reduced_graph, var, var2))
 				if len(paths) != 0:
-					i = 0
 					for path in paths:
-
 						for var3 in desired_vars:
 							try:
 								index = path.index(var3)
