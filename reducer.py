@@ -34,7 +34,7 @@ def reducer(graph, xs, ys):
 
 			for path in paths:
 				for var in path:
-					if var in desired_vars:  # for each variable in the path, if we find a desired variable with store it and move on
+					if var in desired_vars:  # for each variable in the path, if we find a desired variable we store it and move on
 						routes[predec].append(var)
 						break
 
@@ -56,7 +56,7 @@ def reducer(graph, xs, ys):
 		for var in route:
 			reduced_graph.add_edge(key, var)
 
-	# now we can remove some of these edges if they are the first along a path
+	# now we can remove some of these edges if they are the first along a path, first we identify these positions
 	ordering = {}
 	for key in routes:
 		route = routes[key]
